@@ -13,7 +13,10 @@ The raw text is on a new line whereas the rendered result continues the
 sentence in the same paragraph. 
 <span style="text-decoration:underline">this</span> can be created with the u tag as well.
 
-<img src="../../../img/map/m3_aggregation_market_trans.png" width="500">
+![Reference an image](assets/images/m1_Categorized.png)
+
+Normal Html image tag is supported, which provides more control over the size of the image.
+<img src="./assets/images/m1_Categorized.png" width="500" alt="use an image">
 
 > :bulb: A callout can be created in this format:<br>
 > "br" tag to force a line break
@@ -39,7 +42,7 @@ consider four criteria:
 - Land value per unit area
 - Current land use
 
-As it has been introduced in
+Hyperlink to another page on the website.
 [Module 2](https://github.com/SERVIR-WA/GALUP/blob/master/training/1_lu/modules/module2.md),
 **LUCIS-OPEN Tools for QGIS** consists of various geospatial tools to measure
 different criteria defined in a suitability analysis, such as *Distance*,
