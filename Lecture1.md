@@ -6,7 +6,7 @@
 - Make the text _Italic_ by wrapping with underscores,
 - Italic and bold can be combined **_Row Crops_**.
 
-## <a id="sec1"></a>1. Level-2 header: 2 pound signs</a>
+## <a name="sec1"></a>1. Level-2 header: 2 pound signs
 
 **A line break** is treated as a space in _markdown_.
 The raw text is on a new line whereas the rendered result continues the
@@ -24,9 +24,8 @@ Normal Html image tag is supported, which provides more control over the size of
 
 ### Hyperlinks to external sources
 
-1. [Define criteria](https://tinyurl.com/4mavut7n) 
-2. [Transform to a common suitability scale](https://tinyurl.com/nmaxjnwv)
-3. [Weight the criteria and create a suitability map](https://tinyurl.com/2jptepna)
+1. [Markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
+2. [Another markdown guide](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
 ### 1.1 Level-3 header: 3 pound signs
 
@@ -50,112 +49,22 @@ different criteria defined in a suitability analysis, such as *Distance*,
 
 ## 2. Introduction to QGIS Graphical Modeler
 
-The [graphical modeler](https://docs.qgis.org/3.10/en/docs/user_manual/processing/modeler.html)
-![modeler](../../../img/gui/icon/processingModel.svg) allows you to create complex
-models using a simple and easy-to-use interface.
-When working with a GIS, most analysis operations are not isolated, rather part
-of a chain of operations. Using the graphical modeler, that chain of operations
-can be wrapped into a single process, making it convenient to execute later
-with a different set of inputs.
-No matter how many steps and different algorithms it involves, a model is
-executed as a single algorithm, saving time and effort.
-
-Similar to the **Toolbox** we have seen and practiced in previous modules,
-**Graphical Modeler** is an integral component of the
-[QGIS processing framework](https://docs.qgis.org/3.10/en/docs/user_manual/processing/intro.html).
-Several algorithms can be **combined graphically** using the modeler to define
-a workflow, creating a single process that involves several sub-processes.
-
-The Graphical Modeler bears a resemblance to ArcGIS
-[ModelBuilder](https://tinyurl.com/bknc9843), in terms of their functionality.
-So, prior experiences with ModelBuilder would be helpful in learning the
-graphical modeler.
-However, there exist some distinctions between the mechanisms of the two.
-The first difference that you might notice is that the graphical modeler is a
-more rigid tool to configure in that you have to define, in sequence,
-[inputs](https://tinyurl.com/qgis-gm-input) and
-[workflow](https://tinyurl.com/qgis-gm-workflow) consisting a series of
-algorithms (or tools).
-
-Please watch the video below created by
-[Open Source Options](https://www.youtube.com/channel/UCOSeGDrlScCNgBcN5C8nTEw)
-for a detailed introduction to the **Graphical Modeler**.
+Following is a way to link External videos (on YouTube) to this file. Note that the empty spaces in the path
+of the thumbnail is replaced by "%20". Otherwise the link wouldn't work.
 
 <a href="https://www.youtube.com/watch?v=eZb5VLTc9-o">
-  <img src="../../../img/timg/m3_QGIS%20Model%20Builder.png" alt="GMtutorial" width="800">
+  <img src="./assets/images/m3_QGIS%20Model%20Builder.png" alt="GMtutorial" width="800">
 </a><br>
 
-<br>
+Following is a video linked to the Mediasite with a UFL domain name.
 
-> :books: "Test Drive" the QGIS Graphical Modeler<br>
-> Before we dive into the land-use suitability models, let's give the
-> </b>graphical modeler</b> a "test drive".
-> See if you can replicate the workflow presented in the video.
-> We will use two <b>algorithms</b> (tools):<br>
-> <ul>
->   <li><a href="https://tinyurl.com/3ndzs6n8">Buffer</a>, and</li>
->   <li><a href="https://tinyurl.com/cukvw68n">Clip by mask layer</a>.</li>
-> </ul>
-> And, the following datasets as <b>inputs</b>:
-> <ul>
->   <li><i>Slope_Percent.tif</i> at
->   <code>
->     GALUP-master -> training -> 1_lu -> datasets -> Slope_Percent
->   </code>
->   </li>
->   <li><i>Hydro.shp</i> at
->   <code>
->     GALUP-master -> training -> 1_lu -> datasets ->
->     Underground water veins in THLD District
->   </code>
->   </li>
-> </ul>
-> For <i>buffer distance</i>, please use <b>200 meters</b>.
-> Please submit your model, i.e., the "*.model3" file, as the first attachment
-> along with the other two exercises below.
+<a href="https://mediasite.video.ufl.edu/Mediasite/Play/454f67d210d843889b84dc1a1bc25f421d">
+  <img src="./assets/images/m2_den_line.png" alt= "density of line" width="800">
+</a>
 
 ## 3. Modeling Suitability for Row Crops Farming
 
-In this module, we will use Row Crops Farming as an example to explore how to
-develop suitability models by connecting various **LUCIS-OPEN Tools for QGIS**
-in the **QGIS Graphical Modeler**.
-As described in <a href="#sec1">Section 1</a> of this module,
-suitability modeling starts by **defining criteria**.
-In many cases, criteria are determined by the **qualities** sustaining a
-land parcel's usefulness for a particular purpose (land use).
-Such qualities should be based upon *expert knowledge*, *official guidelines*,
-and *stakeholders' values*.
-
-In this example, we define four criteria contributing to the suitability for
-row crops farming:
-
-1. Transportation accessibility
-2. Soil condition
-3. Land condition
-4. Market proximity
-
-We will see how we can build an independent suitability model in QGIS for
-each criterion.
-Of these four models, the first two are presented below, while the last two
-will be used for exercises.
-In this module, we still use *Twifo-Hemang-Lower-Denkyira* (THLD) District
-Assembly as our study area and the **Integrated Decision Units** (IDUs) that we
-have seen in the last module as the study land units.
-
-### 3.1 Transportation Accessibility Model
-
-Since row crops are grown in large quantities, _Transportation Accessibility_
-is considered a critical factor **affecting the distribution costs** of
-harvested crops.
-The criterion is measured by each IDU's
-([Euclidean](https://tinyurl.com/2xe8sd3y)) distance to primary and secondary
-roads.
-We assume IDUs closer to these facilities have **better accessibility** to the
-transportation network and hence require **fewer distribution costs**.
-
-#### 3.1.1 Model Inputs
-
-The **Inputs** used by this model are listed below:
+Markdown also supports table.
 
 | ID | Input Element | Parameter Name  | Geometry Type | Data used to run the model | Description                                |
 |----|---------------|-----------------|---------------|----------------------------|--------------------------------------------|
@@ -168,68 +77,7 @@ The **Inputs** used by this model are listed below:
 > Inputs are denoted by ![Input](../../../img/gui/menu/qgm_input.svg) in all diagrams
 > throughout this Module (including exercises).
 
-#### 3.1.2 Model Algorithms (workflow)
 
-1. [Distance to Line Features](https://github.com/SERVIR-WA/GALUP/wiki/Tools#distance-to-line-features)
-   calculates distances between each IDU and its closest segments on primary
-   and secondary roads, respectively.
-2. [Rescale Field Linearly](https://github.com/SERVIR-WA/GALUP/wiki/Tools#rescale-field-linearly)
-   is used to transform the distances from its original scale to the
-   **common suitability scale**, i.e., 1 to 9.
-3. [Weight Sum of Fields](https://github.com/SERVIR-WA/GALUP/wiki/Tools#weighted-sum-of-fields)
-   is used to combine and quantify the effects on accessibility by primary
-   roads *versus* by secondary roads.
-
-> :bulb: Note:<br>
-> Algorithms are denoted by ![Workflow](../../../img/gui/menu/qgm_algorithm.svg) in all
-> diagrams throughout this Module (including exercises).
-
-#### 3.1.3 Modeling and Results
-
-The following diagram (exported from the graphical modeler) shows the structure
-of the **Transportation Accessibility** model.
-
-| Transportation Accessibility Model                                   |
-|----------------------------------------------------------------------|
-| ![TAM](../../../img/qgm/model/m3_Transportation_Accessibility.svg) |
-
-The table below shows the **parameter settings** for each algorithm used in
-this model.
-
-![TAM_tools](../../../img/qgm/algtbl/m3_transportation_accessibility_table.svg)
-
-<sup>*</sup>
-Note: Parameters were left as default if not mentioned in the table above.
-
-| Model Dialog         |    Output Map    |
-|------------------------------------------|------------------------------------------|
-| <img src="../../../img/gui/window/m3_transportation_accessibilityPS.png" alt= "Add data to Map Canvas" width="540">   |  <img src="../../../img/map/m3_transportation_accessibility.png" alt= "Add data to Map Canvas" width="600">   |
-
-In the output map, we used the ***Greens*** color ramp to indicate **five**
-different levels of transportation accessibility in the THLD District Assembly.
-
-#### 3.1.4 Video Tutorial
-
-<a href="https://mediasite.video.ufl.edu/Mediasite/Play/966ff210d6e64eb09e54d407e0cfd4231d">
-  <img src="../../../img/timg/m3_TAM.png" alt= "TAM" width="800">
-</a>
-
-### 3.2 Soil Condition Model
-
-Soil attributes, such as pH value and permeability, deeply affect the
-cultivation of crops.
-Thus, the *Soil Condition* model operates on this concept in that the model
-calculates suitability based on whether (and how much) the soil qualities of a
-given area is conducive to growing crops.
-In this model, we will examine soil condition through three factors:
-
-- Soil depth
-- Soil pH
-- Soil permeability
-
-#### 3.2.1 Model Inputs
-
-The **Inputs** used by this model are listed below:
 
 | ID | Input Element  | Parameter Name             | Data Used to Run the Model                 | Description                         |
 |----|----------------|----------------------------|--------------------------------------------|-------------------------------------|
@@ -243,101 +91,6 @@ The **Inputs** used by this model are listed below:
 | 8  | `Raster Layer` | Soil (60-100 cm) PH Value  | *SD60_100.tif*                             | pH value at 60cm-100cm soil depth*  |
 | 9  | `Raster Layer` | Soil (100-200 cm) PH Value | *SD100_200.tif*                            | pH value at 100cm-200cm soil depth* |
 | 10 | `String`       | Weights for RZD, Drainage  | *0.33, 0.33, 0, 0, 0, 0.089, 0.236, 0.005* | Weights used to sum criteria        |
-
-**Data Source**:<br>
-<sup>\*</sup>[Soil pH data](https://tinyurl.com/w9fcrxfu)
-(the pH value varies at different depth of the same location on the ground)<br>
-<sup>\*\*</sup> [Root Zone Depth](https://tinyurl.com/348v7zvf)<br>
-<sup>\*\*\*</sup> [Soil Drainage](https://tinyurl.com/49p9tw94)
-
-#### 3.2.2 Model Algorithms (workflow)
-
-1. [Zonal Statistics](https://github.com/SERVIR-WA/GALUP/wiki/Tools#zonal-statistics)
-   calculates the ***mean*** within individual IDUs for **8** raster datasets.
-2. [Reclassify Field](https://github.com/SERVIR-WA/GALUP/wiki/Tools#reclassify-field)
-   transforms to the values derived from each raster dataset to the
-   **common suitability scale**, i.e., 1 to 9.
-3. [Weighted Sum of Fields](https://github.com/SERVIR-WA/GALUP/wiki/Tools#weighted-sum-of-fields)
-   is used to combine and quantify the effects on suitability by different soil
-   attributes, i.e., depth, pH, and permeability.
-
-#### 3.2.3 Modeling and Results
-
-The following diagram (exported from the graphical modeler) shows the structure
-of the **Soil Condition** model.
-
-| Soil Condition Model                                   |
-|--------------------------------------------------------|
-| ![SCM](../../../img/qgm/model/m3_Soil_Condition.svg) |
-
-> :memo: **Some notes on reclassification and weights**
->
-> 1. Again, the purpose of reclassification is to transform values from its
->    original scale to the so-called **common suitability scale**.
->    As mentioned before, there are
->    <a href="#transformations">three methods for transformation</a>:
->    *unique categories*, *range of classes*, and *continuous functions*.
->    The reclassified values indicating suitability should be **defendable**
->    and based on either *relevant literature*, *official guidelines*, or
->    *professional expertise*.
-> 2. In the table below, all reclassifications were done by using the first
->    transformation method, **unique categories**.
->    The reclassified values for (1) *drainage*, (2) *pH*, and (3)
->    *root zone depth* are based on relevant agriculture literature
->    <a href="#ref1"><sup>[1]</sup></a>.
-> 3. The **weights** used to sum the reclassified layers are equally
->    allocated towards the three factors, i.e., permeability (33%),
->    depth (33%), and pH (34%).
->    However, since pH varies at different depth of soil, the six reclassified
->    pH-related layers **collectively share 34%** of the total weights.
->    The 34% was then distributed over the six layers according to root depths
->    <sup>
->      [<a href="#ref2">2</a>, <a href="#ref3">3</a>,
->      <a href="#ref4">4</a>, <a href="#ref5">5</a>]
->    </sup>
->    of the **top six crops**<a href="#ref6"><sup>[6]</sup></a> (with respect
->    to annual yields) in the THLD District Assembly, which are *maize*,
->    *rice*, *cassava*, *yam*, *cocoyam*, and *plantain*.
-
-The table below shows the **parameter settings** for each algorithm used in
-this model.
-
-![SCM_setting](../../../img/qgm/algtbl/m3_gm_setting_table.svg)
-
-<sup>*</sup>
-Note: Parameters were left as default if not mentioned in the table above.
-
-| Model Dialog        |    Output Map   |
-|------------------------------------------|------------------------------------------|
-| ![PS1](../../../img/gui/window/m3_soil_conditionPS.png) | ![am1](../../../img/map/m3_symbology_sc.png) |
-
-#### 3.2.4 Video Tutorial
-
-<a href="https://mediasite.video.ufl.edu/Mediasite/Play/d1689e451d2c4d0eb3a6aface82e6bf41d">
-  <img src="../../../img/timg/m3_SCM.png" alt= "SCM" width="800">
-</a>
-
-## 4. Write Documentation for Your Models
-
-It is a **virtue** to write **quality documentation** for any piece of software
-which might be used not just by yourself.
-Some developers would probably argue that the above statement is TRUE, even for
-something only you would use because you can only imagine how often you ask
-yourself the question: "*why I did this*?"
-Now, you have developed two suitability models in QGIS and you are about to
-develop two more in the **exercises** below.
-If you want to share what you created with your team, you should consider
-write documentation for those models.
-
-In QGIS Graphical Modeler, you can document your model with the
-![help editor](../../../img/gui/icon/mActionEditHelpContent.svg)
-[**Help Editor**](https://tinyurl.com/4v5sa57j).
-You can include information like *author*, *description*,
-*input/output parameters*, *version*, and *external links* of the model.
-Simply click the `Edit model help` on the **Menu Bar** at the top of the
-graphical modeler to start editing the documentation for your model.
-This is a "***bonus***" credit for the **exercises** as well.
-We certainly encourage you to include "Helps" for all the models you created.
 
 ## 5. Exercises and Post-training Survey
 
